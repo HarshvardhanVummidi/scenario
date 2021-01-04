@@ -1,0 +1,19 @@
+---
+- name: deploy tomcat-8 based application
+  become: yes
+  hosts: all
+  tasks:
+    - name:
+      apt:
+        name: openjdk-8-jdk
+        update_cache: yes
+        state: present
+    - name: install tomcat-8
+      apt:
+        name: tomcat8
+        state: present
+    - name: Download game of life
+      get_url:
+        url: https://referenceappkhaja.s3-us-west-2.amazonaws.com/gameoflife.war
+        dest: /var/lib/tomcat8/webapps/gameoflife.war
+    
